@@ -51,23 +51,10 @@ def game():
         pixels.show()
         time.sleep(delay)
         
-        # Check button press
-        if not button.value:
-            if red_start <= pos <= red_end:
-                flash(GREEN, 1)  # Correct press
-                break  # Break out of while loop
-            else:
-                flash(RED, 3)  # Wrong press
-
         # Update position
         pos += direction
         if pos == 0 or pos == NUM_LEDS - 1:
             direction *= -1  # Bounce off edges
-
-    # Game won
-    flash(GREEN, 3)
-    pixels.fill(BLACK)
-    pixels.show()
 
 # Run the game
 game()

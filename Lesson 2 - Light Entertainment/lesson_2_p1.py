@@ -1,10 +1,11 @@
 import board
 import neopixel
+import digitalio
 import time
 
 # Constants
 NUM_LEDS = 8
-BUTTON_PIN = board.GP20  # Change if using a different pin
+BUTTON_PIN = board.GP20
 
 # Colors
 BLACK = (0, 0, 0)
@@ -15,16 +16,21 @@ GREEN = (0, 255, 0)
 
 # Setup
 pixels = neopixel.NeoPixel(board.GP0, NUM_LEDS, brightness=0.3, auto_write=False)
+button = digitalio.DigitalInOut(BUTTON_PIN)
+button.direction = digitalio.Direction.INPUT
+button.pull = digitalio.Pull.UP
 
-def flash(color, times, delay=0.2):
-    """Flash all LEDs a given color a number of times."""
-    for _ in range(times):
-        pixels.fill(color)
-        pixels.show()
-        time.sleep(delay)
-        pixels.fill(BLACK)
-        pixels.show()
-        time.sleep(delay)
+pos = 0  # Blue dot position - try changing it!
 
-flash(GREEN, 10)
+# Turn off all pixels
+pixels.fill(BLACK)
+
+# Turn on blue pixel - try changing the color!
+pixels[pos] = BLUE
+pixels.show()
+
+# Wait 5 seconds (try changing the time!)
+time.sleep(5)
+
+# Stop using the LEDs
 pixels.deinit()
